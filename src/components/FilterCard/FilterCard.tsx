@@ -3,9 +3,13 @@ import { styled } from '@mui/system'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
+import Tabs from '@mui/material/Tabs'
+import Tab from '@mui/material/Tab'
+import Box from '@mui/material/Box'
+import { SearchableList } from '../../components'
+
+import { users } from '../../data/users-mock'
+import { integrations } from '../../data/integrations-mock'
 
 const StyledCard = styled(Card, {})({
   maxWidth: '340px',
@@ -94,7 +98,7 @@ export const FilterCard: React.FC<any> = (props) => {
       >
         {value === index && (
           <Box sx={{ p: 2 }}>
-            <Typography>{children}</Typography>
+            <Typography component={'span'}>{children}</Typography>
           </Box>
         )}
       </div>
@@ -115,11 +119,11 @@ export const FilterCard: React.FC<any> = (props) => {
         </Box>
 
         <TabPanel value={value} index={0}>
-          Users
+          <SearchableList input-placeholder='Search options' list={users} />
         </TabPanel>
 
         <TabPanel value={value} index={1}>
-          Integrations
+          <SearchableList input-placeholder='Search options' list={integrations} />
         </TabPanel>
       </StyledCardContent>
     </StyledCard>
