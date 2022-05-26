@@ -17,7 +17,7 @@ const StyledButton = styled(Button, {})({
 })
 
 interface IButtonProps {
-  name: any
+  name: string
 }
 
 export const AddFilterButton: React.FC<IButtonProps> = ({name}: IButtonProps) => {

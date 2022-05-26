@@ -4,7 +4,7 @@ import { AddFilterButton, FilterCard, ActiveOptions } from '../components'
 
 export const FrontPage = () => {
     return (
-      <Grid container xs={4} spacing={2} margin={1}>
+      <Grid container spacing={2} margin={1}>
         <Grid item xs={4} className='p'>
           <AddFilterButton name='Add Filter' />
         </Grid>
