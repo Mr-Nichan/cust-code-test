@@ -3,17 +3,17 @@ export interface IButtonProps {
   onClick: Function;
 }
 
-export interface StyledTabProps {
+export interface IStyledTabProps {
   label: string;
 }
 
-export interface StyledTabsProps {
+export interface IStyledTabsProps {
   children?: React.ReactNode;
   value: number;
   onChange: (event: React.SyntheticEvent, newValue: number) => void;
 }
 
-export interface TabPanelProps {
+export interface ITabPanelProps {
   children?: React.ReactNode
   index: number
   value: number
@@ -30,11 +30,11 @@ export interface ISearchableListProps {
   list: Array<IListItem>
   inputPlaceholder: string
   itemClickAction: Function,
-  activeItems: Array<number>
+  activeItems: Array<IListItem>
 }
 
 export interface IntegrationFilterState {
-  filterBy: Array<number>
+  filterBy: Array<IListItem>
 }
 
 export interface IuiState {
@@ -42,5 +42,5 @@ export interface IuiState {
 }
 
 export interface IUserFilterState {
-  filterBy: Array<number>
+  filterBy: Array<IListItem>
 }

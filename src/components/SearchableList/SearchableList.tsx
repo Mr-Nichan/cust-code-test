@@ -59,8 +59,8 @@ export const SearchableList: React.FC<any> = ({label, list, inputPlaceholder, it
               key={i}
               image={item.image}
               name={item.name}
-              onClick={() => itemClickAction(item.id)}
-              active={activeItems.includes(item.id)}
+              onClick={() => itemClickAction(item)}
+              active={activeItems.map(item => item.id).indexOf(item.id) > -1}
             />
           )
         })

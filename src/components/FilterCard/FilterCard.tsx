@@ -12,7 +12,7 @@ import { RootState } from '../../redux/store'
 import { toggleFilterMenu } from '../../redux/features/ui-state/uiStateSlice'
 import { addFilter as addUserFilter } from '../../redux/features/user-filter/userFilterSlice'
 import { addFilter as addIntegrationFilter } from '../../redux/features/integration-filter/integrationFilterSlice'
-import { StyledTabProps, StyledTabsProps, TabPanelProps } from '../../interfaces'
+import { IStyledTabProps, IStyledTabsProps, ITabPanelProps, IListItem } from '../../interfaces'
 
 import { users } from '../../data/users-mock'
 import { integrations } from '../../data/integrations-mock'
@@ -28,7 +28,7 @@ const StyledCardContent = styled(CardContent, {})({
   padding: 0
 })
 
-const StyledTab = styled((props: StyledTabProps) => <Tab disableRipple {...props} />)(
+const StyledTab = styled((props: IStyledTabProps) => <Tab disableRipple {...props} />)(
   ({ theme }) => ({
     textTransform: 'none',
     minWidth: 0,
@@ -49,7 +49,7 @@ const StyledTab = styled((props: StyledTabProps) => <Tab disableRipple {...props
   })
 )
 
-const StyledTabs = styled((props: StyledTabsProps) => (
+const StyledTabs = styled((props: IStyledTabsProps) => (
   <Tabs
     {...props}
     TabIndicatorProps={{ children: <span className="MuiTabs-indicatorSpan" /> }}
@@ -78,7 +78,7 @@ export const FilterCard: React.FC<any> = (props) => {
     setValue(newValue);
   }
 
-  const TabPanel = (props: TabPanelProps) => {
+  const TabPanel = (props: ITabPanelProps) => {
     const { children, value, index, ...other } = props;
   
     return (
@@ -113,9 +113,9 @@ export const FilterCard: React.FC<any> = (props) => {
           <SearchableList
             inputPlaceholder='Search options'
             list={users}
-            itemClickAction={(id: number) => {
+            itemClickAction={(item: IListItem) => {
               dispatch(toggleFilterMenu())
-              dispatch(addUserFilter(id))
+              dispatch(addUserFilter(item))
             }}
             activeItems={activeUserFilters}
           />
@@ -125,9 +125,9 @@ export const FilterCard: React.FC<any> = (props) => {
           <SearchableList
             inputPlaceholder='Search options'
             list={integrations}
-            itemClickAction={(id: number) => {
+            itemClickAction={(item: IListItem) => {
               dispatch(toggleFilterMenu())
-              dispatch(addIntegrationFilter(id))
+              dispatch(addIntegrationFilter(item))
             }}
             activeItems={activeIntegrationFilters}
           />

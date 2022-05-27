@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { IUserFilterState } from '../../../interfaces'
+import { IUserFilterState, IListItem } from '../../../interfaces'
 
 const initialState: IUserFilterState = {
   filterBy: [],
@@ -9,11 +9,14 @@ export const userFilterSlice = createSlice({
   name: 'userFilter',
   initialState,
   reducers: {
-    addFilter: (state, action: PayloadAction<number>) => {
+    addFilter: (state, action: PayloadAction<IListItem>) => {
       state.filterBy = [...state.filterBy, action.payload]
     },
-    removeFilter: (state, action: PayloadAction<number>) => {
-      const temp = state.filterBy.filter((item: number) => item !== action.payload)
+    removeFilter: (state, action: PayloadAction<IListItem>) => {
+      const temp = state.filterBy.filter(item => {
+        return item.id !== action.payload.id
+      })
+      
       state.filterBy = [...temp]
     },
   },
