@@ -7,6 +7,12 @@ import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import Box from '@mui/material/Box'
 import { SearchableList } from '../../components'
+import { useSelector, useDispatch } from 'react-redux'
+import { RootState } from '../../redux/store'
+import { toggleFilterMenu } from '../../redux/features/ui-state/uiStateSlice'
+import { addFilter as addUserFilter } from '../../redux/features/user-filter/userFilterSlice'
+import { addFilter as addIntegrationFilter } from '../../redux/features/integration-filter/integrationFilterSlice'
+import { StyledTabProps, StyledTabsProps, TabPanelProps } from '../../interfaces'
 
 import { users } from '../../data/users-mock'
 import { integrations } from '../../data/integrations-mock'
@@ -39,13 +45,9 @@ const StyledTab = styled((props: StyledTabProps) => <Tab disableRipple {...props
     },
     '&.Mui-focusVisible': {
       backgroundColor: '#d1eaff',
-    },
-  }),
-);
-
-interface StyledTabProps {
-  label: string;
-}
+    }
+  })
+)
 
 const StyledTabs = styled((props: StyledTabsProps) => (
   <Tabs
@@ -59,32 +61,21 @@ const StyledTabs = styled((props: StyledTabsProps) => (
     backgroundColor: 'transparent',
   },
   '& .MuiTabs-indicatorSpan': {
-
     top: '2px',
     borderBottom: '1.3px solid #339933',
     maxWidth: '70%',
-    width: '100%',
-    // backgroundColor: '#339933',
+    width: '100%'
   },
 });
 
-interface StyledTabsProps {
-  children?: React.ReactNode;
-  value: number;
-  onChange: (event: React.SyntheticEvent, newValue: number) => void;
-}
-
 export const FilterCard: React.FC<any> = (props) => {
   const [value, setValue] = useState(0);
+  const activeUserFilters = useSelector((state: RootState) => state.userFilter.filterBy)
+  const activeIntegrationFilters = useSelector((state: RootState) => state.integrationFilter.filterBy)
+  const dispatch = useDispatch()
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
-  };
-
-  interface TabPanelProps {
-    children?: React.ReactNode
-    index: number
-    value: number
   }
 
   const TabPanel = (props: TabPanelProps) => {
@@ -119,11 +110,27 @@ export const FilterCard: React.FC<any> = (props) => {
         </Box>
 
         <TabPanel value={value} index={0}>
-          <SearchableList input-placeholder='Search options' list={users} />
+          <SearchableList
+            inputPlaceholder='Search options'
+            list={users}
+            itemClickAction={(id: number) => {
+              dispatch(toggleFilterMenu())
+              dispatch(addUserFilter(id))
+            }}
+            activeItems={activeUserFilters}
+          />
         </TabPanel>
 
         <TabPanel value={value} index={1}>
-          <SearchableList input-placeholder='Search options' list={integrations} />
+          <SearchableList
+            inputPlaceholder='Search options'
+            list={integrations}
+            itemClickAction={(id: number) => {
+              dispatch(toggleFilterMenu())
+              dispatch(addIntegrationFilter(id))
+            }}
+            activeItems={activeIntegrationFilters}
+          />
         </TabPanel>
       </StyledCardContent>
     </StyledCard>

@@ -11,12 +11,7 @@ const StyledGrid = styled(Grid, {})({
   borderRadius: '5px',
   alignItems: 'center',
   margin: '2px',
-  color: '#9FA2B4',
-  '&:hover': {
-    backgroundColor: '#99CC98',
-    color: '#FFF',
-    fontWeight: '700'
-  }
+  color: '#9FA2B4'
 })
 
 const StyledTypography = styled(Typography, {})({
@@ -26,15 +21,32 @@ const StyledTypography = styled(Typography, {})({
 type IListItem = {
   id: number;
   image: string
-  name: string
+  name: string,
+  active: boolean,
+  onClick: Function
 }
 
-export const ListItem: React.FC<any> = ({id, image, name}: IListItem) => {
+export const ListItem: React.FC<any> = ({id, image, name, active, onClick}: IListItem) => {
     return (
       <>
-        <StyledGrid container>
+        <StyledGrid
+          container
+          onClick={() => {
+            if (!active) {
+              onClick()
+            }
+          }}
+          sx={active ? {
+              backgroundColor: '#D4D4D4',
+              color: '#fff'
+            } : {
+              '&:hover': {
+                backgroundColor: '#99CC98',
+                color: '#FFF'
+          }}}
+        >
           <img src={`images/${image}`} style={{ width: '25px', height: '25px', marginLeft: '8px' }} alt="item-icon" />
-          <StyledTypography>{name}</StyledTypography>
+          <StyledTypography sx={active ? { fontWeight: '600' }: {} }>{name}</StyledTypography>
         </StyledGrid>
       </>
     )
