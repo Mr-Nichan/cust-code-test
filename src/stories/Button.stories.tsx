@@ -7,4 +7,4 @@ export default {
   component: AddFilterButton
 } as ComponentMeta<typeof AddFilterButton>
 
-export const FilterButton: ComponentStory<typeof AddFilterButton> = () => <AddFilterButton name='Add Filter' />
+export const FilterButton: ComponentStory<typeof AddFilterButton> = () => <AddFilterButton name='Add Filter' onClick={() => console.log('opening menu')} />

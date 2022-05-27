@@ -13,17 +13,22 @@ const StyledButton = styled(Button, {})({
   border: '1.2px solid #339933',
   textTransform: 'none',
   color: '#65B366',
-  boxSizing: 'border-box'
+  boxSizing: 'border-box',
+  '&:hover': {
+    border: '1.2px solid #339933',
+    backgroundColor: '#33993311'
+  }
 })
 
 interface IButtonProps {
   name: string
+  onClick: Function
 }
 
-export const AddFilterButton: React.FC<IButtonProps> = ({name}: IButtonProps) => {
+export const AddFilterButton: React.FC<IButtonProps> = ({name, onClick}: IButtonProps) => {
     return (
         <StyledButton
-          onClick={() => console.log('Boop!')}
+          onClick={() => onClick()}
           variant="outlined"
           startIcon={<AddIcon />}
           >
