@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { styled } from '@mui/system'
 import TextField from '@mui/material/TextField'
 import InputAdornment from '@mui/material/InputAdornment'
@@ -32,28 +32,43 @@ interface ISearchableListProps {
 }
 
 export const SearchableList: React.FC<any> = ({label, list}: ISearchableListProps) => {
-    return (
-      <StyledGrid container>
-        <StyledTextField
-          variant="outlined"
-          fullWidth
-          size="small"
-          placeholder='Search options'
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon />
-              </InputAdornment>
-            ),
-          }}
-        />
-        {
-          list.map((item: IListItem, i: number) => {
-            return (
-              <ListItem key={i} image={item.image} name={item.name} />
-            )
-          })
-        }
-      </StyledGrid>
-    )
+  const [searchVal, setSearchVal] = useState('')
+  
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setSearchVal(e.target.value)
+  }
+
+  const filteredList = list.filter((item) => {
+    if (searchVal !== '') {
+      return item.name.indexOf(searchVal) > -1
+    }
+    return true
+  })
+
+  return (
+    <StyledGrid container>
+      <StyledTextField
+        variant="outlined"
+        fullWidth
+        size="small"
+        value={searchVal}
+        onChange={handleChange}
+        placeholder='Search options'
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <SearchIcon />
+            </InputAdornment>
+          ),
+        }}
+      />
+      {
+        filteredList.map((item: IListItem, i: number) => {
+          return (
+            <ListItem key={i} image={item.image} name={item.name} />
+          )
+        })
+      }
+    </StyledGrid>
+  )
 }
