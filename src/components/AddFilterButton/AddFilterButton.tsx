@@ -2,6 +2,7 @@ import React from 'react'
 import { styled } from '@mui/system'
 import { Button } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
+import { IButtonProps } from '../../interfaces'
 
 const StyledButton = styled(Button, {})({
   maxWidth: '128px',
@@ -19,11 +20,6 @@ const StyledButton = styled(Button, {})({
     backgroundColor: '#33993311'
   }
 })
-
-interface IButtonProps {
-  name: string
-  onClick: Function
-}
 
 export const AddFilterButton: React.FC<IButtonProps> = ({name, onClick}: IButtonProps) => {
     return (

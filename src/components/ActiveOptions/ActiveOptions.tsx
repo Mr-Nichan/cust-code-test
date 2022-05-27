@@ -21,6 +21,7 @@ export const ActiveOptions = () => {
       {userFilter.map((item) => {
         return (
           <StyledChip
+            key={item}
             label={`User: ${item}`}
             onDelete={() => dispatch(removeUserFilter(item))}
             deleteIcon={<HighlightOffIcon />}
@@ -32,6 +33,7 @@ export const ActiveOptions = () => {
       {integrationFilter.map((item) => {
         return (
           <StyledChip
+            key={item}
             label={`Integration: ${item}`}
             onDelete={() => dispatch(removeIntegrationFilter(item))}
             deleteIcon={<HighlightOffIcon />}

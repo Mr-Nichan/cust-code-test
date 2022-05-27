@@ -1,10 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { IuiState } from '../../../interfaces'
 
-export interface uiState {
-  filterMenuOpen: boolean
-}
-
-const initialState: uiState = {
+const initialState: IuiState = {
   filterMenuOpen: false,
 }
 

@@ -1,11 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { IUserFilterState } from '../../../interfaces'
 
-export interface UserFilterState {
-  filterBy: Array<number>
-}
-
-const initialState: UserFilterState = {
-  filterBy: [1],
+const initialState: IUserFilterState = {
+  filterBy: [],
 }
 
 export const userFilterSlice = createSlice({

@@ -5,6 +5,7 @@ import InputAdornment from '@mui/material/InputAdornment'
 import { Grid } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
 import { ListItem } from './ListItem'
+import { IListItem, ISearchableListProps } from '../../interfaces'
 
 const StyledGrid = styled(Grid, {})({
   marginTop: '10px'
@@ -20,18 +21,7 @@ const StyledTextField = styled(TextField, {})({
   marginRight: '10px'
 })
 
-interface IListItem {
-  id: number;
-  image?: string
-  name: string
-}
-
-interface ISearchableListProps {
-  label: string
-  list: Array<IListItem>
-}
-
-export const SearchableList: React.FC<any> = ({label, list}: ISearchableListProps) => {
+export const SearchableList: React.FC<any> = ({label, list, inputPlaceholder, itemClickAction, activeItems}: ISearchableListProps) => {
   const [searchVal, setSearchVal] = useState('')
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -40,7 +30,7 @@ export const SearchableList: React.FC<any> = ({label, list}: ISearchableListProp
 
   const filteredList = list.filter((item) => {
     if (searchVal !== '') {
-      return item.name.indexOf(searchVal) > -1
+      return item.name.toLowerCase().indexOf(searchVal.toLowerCase()) > -1
     }
     return true
   })
@@ -53,7 +43,7 @@ export const SearchableList: React.FC<any> = ({label, list}: ISearchableListProp
         size="small"
         value={searchVal}
         onChange={handleChange}
-        placeholder='Search options'
+        placeholder={inputPlaceholder}
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
@@ -65,7 +55,13 @@ export const SearchableList: React.FC<any> = ({label, list}: ISearchableListProp
       {
         filteredList.map((item: IListItem, i: number) => {
           return (
-            <ListItem key={i} image={item.image} name={item.name} />
+            <ListItem
+              key={i}
+              image={item.image}
+              name={item.name}
+              onClick={() => itemClickAction(item.id)}
+              active={activeItems.includes(item.id)}
+            />
           )
         })
       }

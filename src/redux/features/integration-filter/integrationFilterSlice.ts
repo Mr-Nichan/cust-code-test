@@ -1,11 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-
-export interface IntegrationFilterState {
-  filterBy: Array<number>
-}
+import { IntegrationFilterState } from '../../../interfaces'
 
 const initialState: IntegrationFilterState = {
-  filterBy: [3, 2],
+  filterBy: [],
 }
 
 export const integrationFilterSlice = createSlice({
